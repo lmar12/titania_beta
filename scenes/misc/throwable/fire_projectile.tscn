@@ -1,0 +1,77 @@
+[gd_scene load_steps=15 format=3 uid="uid://d31jlmkkp4tvk"]
+
+[ext_resource type="PackedScene" uid="uid://cudmg4l826hnc" path="res://scenes/misc/throwable/throwable.tscn" id="1_0jqqq"]
+[ext_resource type="SpriteFrames" uid="uid://diil2tern3q7r" path="res://assets/fx/impact.tres" id="2_8ul04"]
+[ext_resource type="Texture2D" uid="uid://bw8ugmkccmrtw" path="res://assets/misc/items/gem/items.png" id="2_ni4a3"]
+[ext_resource type="Script" path="res://scenes/misc/throwable/fire_projectile.gd" id="2_o3rr1"]
+[ext_resource type="Script" path="res://scripts/behavior/projectile_movement.gd" id="3_56xg6"]
+[ext_resource type="AudioStream" uid="uid://dekro3up8dpcr" path="res://assets/sounds/Retro Missile Launcher 01.wav" id="3_i2ho5"]
+[ext_resource type="AudioStream" uid="uid://cvtc5bpv8vur6" path="res://assets/sounds/Retro Impact 20.wav" id="4_f5gak"]
+[ext_resource type="Script" path="res://scripts/behavior/enemy_area.gd" id="5_ok07m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khkxk"]
+size = Vector2(10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3chjs"]
+atlas = ExtResource("2_ni4a3")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnrqa"]
+atlas = ExtResource("2_ni4a3")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7i7bi"]
+atlas = ExtResource("2_ni4a3")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fsp83"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3chjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnrqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7i7bi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8pt1s"]
+radius = 8.0
+
+[node name="fireProjectile" instance=ExtResource("1_0jqqq")]
+collision_mask = 3
+script = ExtResource("2_o3rr1")
+impact_anim = ExtResource("2_8ul04")
+throw_sound = ExtResource("3_i2ho5")
+hit_sound = ExtResource("4_f5gak")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_khkxk")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_fsp83")
+autoplay = "default"
+frame_progress = 0.414535
+
+[node name="projectileMovement" type="Node" parent="." index="3" node_paths=PackedStringArray("area_to_move", "sprite")]
+script = ExtResource("3_56xg6")
+area_to_move = NodePath("..")
+sprite = NodePath("../AnimatedSprite2D")
+speed = 53.114
+
+[node name="EnemyArea" type="Area2D" parent="." index="4"]
+collision_layer = 2147483648
+collision_mask = 2
+script = ExtResource("5_ok07m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea" index="0"]
+shape = SubResource("CircleShape2D_8pt1s")
+
+[connection signal="body_entered" from="EnemyArea" to="." method="_on_enemy_area_body_entered"]
+[connection signal="body_entered" from="EnemyArea" to="EnemyArea" method="_on_body_entered"]

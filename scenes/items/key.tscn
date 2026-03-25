@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5kgmg6mytret"]
+
+[ext_resource type="PackedScene" uid="uid://buli3eoy0y5gx" path="res://scenes/misc/items/item.tscn" id="1_myy4c"]
+[ext_resource type="Texture2D" uid="uid://dm6p1mromvyeq" path="res://assets/misc/key.png" id="2_tihaq"]
+[ext_resource type="AudioStream" uid="uid://c8v4ht3wsrxm" path="res://assets/sounds/Retro PickUp 10.wav" id="3_kdovx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n24yk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58tcm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tihaq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="key" instance=ExtResource("1_myy4c")]
+score = 100
+item_type = 3
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_n24yk")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_58tcm")
+
+[node name="pickSound" parent="." index="3"]
+stream = ExtResource("3_kdovx")

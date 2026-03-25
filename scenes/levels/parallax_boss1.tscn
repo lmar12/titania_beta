@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8gts2trmms5s"]
+
+[ext_resource type="Script" path="res://scenes/levels/parallax_boss_1.gd" id="1_dp82x"]
+[ext_resource type="Texture2D" uid="uid://6c3hjdvou2o0" path="res://assets/tilemaps/parallax/boss/background_sky.png" id="1_kc3b6"]
+[ext_resource type="Texture2D" uid="uid://d3g6ar2xb132l" path="res://assets/tilemaps/parallax/boss/clouds.png" id="2_gl2hv"]
+[ext_resource type="Texture2D" uid="uid://cxpd1hg4daxy3" path="res://assets/tilemaps/parallax-forest-middle-trees.png" id="3_tkm8t"]
+[ext_resource type="Texture2D" uid="uid://dwdvvvihcl3uw" path="res://assets/tilemaps/parallax-forest-front-trees.png" id="4_77oyc"]
+
+[node name="parallaxMist" type="ParallaxBackground"]
+script = ExtResource("1_dp82x")
+
+[node name="background" type="ParallaxLayer" parent="."]
+position = Vector2(0, -32)
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(512, 0)
+
+[node name="Mist-forest-background-back" type="Sprite2D" parent="background"]
+position = Vector2(248, 160)
+texture = ExtResource("1_kc3b6")
+
+[node name="clouds" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0)
+motion_mirroring = Vector2(360, 0)
+
+[node name="Mist-forest-background-back-trees" type="Sprite2D" parent="clouds"]
+position = Vector2(180, 90)
+texture = ExtResource("2_gl2hv")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(418, 0)
+
+[node name="Parallax-forest-middle-trees" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(136, 124.25)
+scale = Vector2(1.54687, 1.54687)
+texture = ExtResource("3_tkm8t")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(384, 0)
+
+[node name="Parallax-forest-front-trees" type="Sprite2D" parent="ParallaxLayer2"]
+position = Vector2(128, 113)
+scale = Vector2(1.4125, 1.4125)
+texture = ExtResource("4_77oyc")

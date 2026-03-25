@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5riospkcttag"]
+
+[ext_resource type="Script" path="res://animatable_body_2d.gd" id="1_8gi3k"]
+
+[node name="movingPlataformPlayer" type="AnimatableBody2D"]
+process_priority = 2
+script = ExtResource("1_8gi3k")
+
+[node name="area_listener" type="Area2D" parent="."]
+collision_mask = 2
+
+[connection signal="body_entered" from="area_listener" to="." method="_on_area_listener_body_entered"]
+[connection signal="body_exited" from="area_listener" to="." method="_on_area_listener_body_exited"]

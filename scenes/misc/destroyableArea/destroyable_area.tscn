@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bafuojr1d7bsr"]
+
+[ext_resource type="Script" path="res://scenes/misc/destroyableArea/destroyable_area.gd" id="1_rornu"]
+
+[node name="destroyableArea" type="Area2D" groups=["destroyable"]]
+process_priority = 2
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_rornu")
+score = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+
+[connection signal="destroy" from="." to="." method="_on_destroy"]

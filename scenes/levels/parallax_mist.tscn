@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgvh8owjjlill"]
+
+[ext_resource type="Texture2D" uid="uid://cl7ptvnqsr62h" path="res://assets/tilemaps/parallax/parallaxBack2.png" id="1_vu8c1"]
+[ext_resource type="Texture2D" uid="uid://cefn5s0brx4ix" path="res://assets/tilemaps/layers/mist-forest-background-back-trees.png" id="2_yolxp"]
+[ext_resource type="Texture2D" uid="uid://dujedsgufjymu" path="res://assets/tilemaps/layers/mist-forest-background-rocks.png" id="3_ms4si"]
+[ext_resource type="Texture2D" uid="uid://c7h42bp0n0to5" path="res://assets/tilemaps/layers/mist-forest-background-tree.png" id="4_18a8c"]
+
+[node name="parallaxMist" type="ParallaxBackground"]
+
+[node name="background" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(512, 0)
+
+[node name="Mist-forest-background-back" type="Sprite2D" parent="background"]
+position = Vector2(256, 120)
+texture = ExtResource("1_vu8c1")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0)
+motion_mirroring = Vector2(400, 0)
+
+[node name="Mist-forest-background-back-trees" type="Sprite2D" parent="ParallaxLayer3"]
+position = Vector2(80, 144)
+texture = ExtResource("2_yolxp")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.2, 0)
+repeat_size = Vector2(208, 0)
+repeat_times = 5
+limit_begin = Vector2(0, -1e+07)
+follow_viewport = false
+
+[node name="Mist-forest-background-rocks" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(104, 104)
+texture = ExtResource("3_ms4si")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+visible = false
+motion_scale = Vector2(0.3, 0)
+motion_mirroring = Vector2(208, 0)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0)
+motion_mirroring = Vector2(600, 0)
+
+[node name="Mist-forest-background-tree" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(168, 80)
+texture = ExtResource("4_18a8c")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://bujwln382uixu"]
+
+[ext_resource type="PackedScene" uid="uid://buli3eoy0y5gx" path="res://scenes/misc/items/item.tscn" id="1_tu70i"]
+[ext_resource type="Script" path="res://scenes/items/throw_item.gd" id="2_t52sm"]
+[ext_resource type="AudioStream" uid="uid://du4j3dsh0egul" path="res://assets/sounds/Retro Swooosh 02.wav" id="3_jd6c5"]
+[ext_resource type="Texture2D" uid="uid://cpl0bo5gnjihv" path="res://assets/fx/Fire-bomb2.png" id="4_ox6xh"]
+[ext_resource type="Script" path="res://scenes/items/halo.gd" id="5_d25ih"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7rns"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p5cfg"]
+blend_mode = 1
+
+[node name="throwItem" instance=ExtResource("1_tu70i")]
+script = ExtResource("2_t52sm")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_f7rns")
+
+[node name="pickSound" parent="." index="3"]
+stream = ExtResource("3_jd6c5")
+volume_db = -4.952
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="4"]
+
+[node name="halo" type="Sprite2D" parent="." index="5"]
+modulate = Color(1, 1, 1, 0.192157)
+material = SubResource("CanvasItemMaterial_p5cfg")
+rotation = 6.28319
+texture = ExtResource("4_ox6xh")
+script = ExtResource("5_d25ih")

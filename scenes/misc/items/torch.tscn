@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://chp6sdixsogem"]
+
+[ext_resource type="PackedScene" uid="uid://bafuojr1d7bsr" path="res://scenes/misc/destroyableArea/destroyable_area.tscn" id="1_oddb8"]
+[ext_resource type="AudioStream" uid="uid://wrcm2xaoc06m" path="res://assets/misc/torchSfx.wav" id="3_2ub0l"]
+[ext_resource type="Texture2D" uid="uid://clwhthrdtlu26" path="res://assets/misc/torch.png" id="3_hqbkc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_32wk1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jxcg"]
+atlas = ExtResource("3_hqbkc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xocg2"]
+atlas = ExtResource("3_hqbkc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kiv52"]
+atlas = ExtResource("3_hqbkc")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8y1uk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jxcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xocg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kiv52")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="destroyableArea" instance=ExtResource("1_oddb8")]
+throw_items = true
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_32wk1")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_8y1uk")
+autoplay = "default"
+frame_progress = 0.985202
+
+[node name="sfx" parent="." index="2"]
+stream = ExtResource("3_2ub0l")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

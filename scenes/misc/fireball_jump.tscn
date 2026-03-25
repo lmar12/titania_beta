@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhoy17r5aeu7r"]
+
+[ext_resource type="PackedScene" uid="uid://bxchj0sqkn5p6" path="res://scripts/jumpin_enemy/jump_prop.tscn" id="1_dqs2v"]
+[ext_resource type="Texture2D" uid="uid://br5t3om0ir1qa" path="res://assets/misc/fireballJump/fire1.png" id="2_0l2uw"]
+[ext_resource type="Texture2D" uid="uid://b6s857ji3pcdn" path="res://assets/misc/fireballJump/fire2.png" id="3_ma1ra"]
+[ext_resource type="Texture2D" uid="uid://ca1lpbgv5ufhf" path="res://assets/misc/fireballJump/fire3.png" id="4_i2ruo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slhr4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0l2uw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ma1ra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i2ruo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4lf2q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_imh1q"]
+
+[node name="fireballJump" instance=ExtResource("1_dqs2v")]
+mass = 1.6
+gravity_scale = 0.9
+inertia = 2.0
+damage = 5
+y_force = 650.0
+
+[node name="sprite" parent="." index="0"]
+rotation = 3.14159
+sprite_frames = SubResource("SpriteFrames_slhr4")
+autoplay = "default"
+frame_progress = 0.14362
+
+[node name="shape" parent="." index="1"]
+shape = SubResource("CircleShape2D_4lf2q")
+
+[node name="shape" parent="hurtArea" index="0"]
+shape = SubResource("CircleShape2D_imh1q")

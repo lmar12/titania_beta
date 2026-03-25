@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpo43kl5wv8w"]
+
+[ext_resource type="Texture2D" uid="uid://bl051ohg4q27e" path="res://assets/lava/frame1.png" id="1_4ysdc"]
+[ext_resource type="Texture2D" uid="uid://cormrkt4odjbs" path="res://assets/lava/frame2.png" id="2_xpq80"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_23j58"]
+frames = 2
+frame_0/texture = ExtResource("1_4ysdc")
+frame_1/texture = ExtResource("2_xpq80")
+frame_1/duration = 1.0
+
+[node name="lavaAnim" type="Sprite2D"]
+texture = SubResource("AnimatedTexture_23j58")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw1mig56tyywv"]
+
+[ext_resource type="PackedScene" uid="uid://bujwln382uixu" path="res://scenes/items/throw_item.tscn" id="1_j45ly"]
+[ext_resource type="Texture2D" uid="uid://cf0ku47sd5vdd" path="res://assets/misc/items/dagger.png" id="2_l4aru"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_82udb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s5cp3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_l4aru")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="knifeItem" instance=ExtResource("1_j45ly")]
+score = 500
+item_type = 4
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_82udb")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_s5cp3")

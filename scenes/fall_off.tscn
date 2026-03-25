@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1hqw4imnihwb"]
+
+[ext_resource type="Script" path="res://fall_off.gd" id="1_2c0k8"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1ssiq"]
+
+[node name="fallOff" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_2c0k8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_1ssiq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

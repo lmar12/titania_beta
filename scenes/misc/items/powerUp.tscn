@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://dgfwukpnvsl6y"]
+
+[ext_resource type="PackedScene" uid="uid://buli3eoy0y5gx" path="res://scenes/misc/items/item.tscn" id="1_u4vq5"]
+[ext_resource type="Texture2D" uid="uid://c2a1abappmoh1" path="res://assets/fx/power-up.png" id="2_0vp5b"]
+[ext_resource type="AudioStream" uid="uid://bl3kevsy4ab1v" path="res://assets/sounds/powerUp2.wav" id="3_p44lx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8l5y"]
+size = Vector2(10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mkhw"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(0, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba5nx"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(23, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqhgv"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(46, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs7qw"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(69, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r05kc"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(92, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gbxp"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(115, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4uw"]
+atlas = ExtResource("2_0vp5b")
+region = Rect2(138, 0, 23, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qntj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mkhw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba5nx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqhgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs7qw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r05kc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gbxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd4uw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="item" instance=ExtResource("1_u4vq5")]
+score = 200
+item_type = 1
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_a8l5y")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_qntj8")
+autoplay = "default"
+frame_progress = 0.558415
+
+[node name="pickSound" parent="." index="3"]
+stream = ExtResource("3_p44lx")
+volume_db = -10.035
+pitch_scale = 0.68
+mix_target = 2

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx7huuccbckib"]
+
+[ext_resource type="Curve2D" uid="uid://dpn6tqbdui03f" path="res://scenes/bosses/erlkonig/erlkonigPath.tres" id="1_vonis"]
+
+[node name="Path2D" type="Path2D"]
+curve = ExtResource("1_vonis")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(280, 200)
+rotation = -1.5708

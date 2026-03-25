@@ -1,0 +1,152 @@
+[gd_scene load_steps=22 format=3 uid="uid://bgxh3t5ma45rt"]
+
+[ext_resource type="PackedScene" uid="uid://lrqtn1tum7l5" path="res://scripts/enemy2/enemy2.tscn" id="1_2rixt"]
+[ext_resource type="Script" path="res://scenes/bosses/erlkonig.gd" id="2_ibksw"]
+[ext_resource type="Texture2D" uid="uid://bkc71njcka5ey" path="res://assets/entities/bosses/erlkonig/body/demon-idle.png" id="2_x7edw"]
+[ext_resource type="Texture2D" uid="uid://xoo0oqa4ehrx" path="res://assets/entities/bosses/erlkonig/body/demon-attack-no-breath.png" id="4_3fx8t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yn4wo"]
+atlas = ExtResource("2_x7edw")
+region = Rect2(0, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymroe"]
+atlas = ExtResource("2_x7edw")
+region = Rect2(160, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7oixl"]
+atlas = ExtResource("2_x7edw")
+region = Rect2(320, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew1o2"]
+atlas = ExtResource("2_x7edw")
+region = Rect2(480, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv0ug"]
+atlas = ExtResource("2_x7edw")
+region = Rect2(640, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm1bw"]
+atlas = ExtResource("2_x7edw")
+region = Rect2(800, 0, 160, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyoi1"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(0, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qaeo2"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(192, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnx88"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(384, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxsel"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(576, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a81ve"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(768, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xowd5"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(960, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csn0q"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(1152, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjcnr"]
+atlas = ExtResource("4_3fx8t")
+region = Rect2(1344, 0, 192, 176)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dgocp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yn4wo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymroe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7oixl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew1o2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv0ug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm1bw")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyoi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qaeo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnx88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxsel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a81ve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xowd5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csn0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjcnr")
+}],
+"loop": false,
+"name": &"new_animation",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywsb6"]
+radius = 24.0
+
+[sub_resource type="Curve2D" id="Curve2D_43op5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 64, 0, 0, 0, 0, 128, 24, 0, 0, 0, 0, 192, 64, 0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[node name="erlkonig" instance=ExtResource("1_2rixt")]
+script = ExtResource("2_ibksw")
+score = 10000
+
+[node name="sprite" parent="." index="0"]
+position = Vector2(7, -5)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_dgocp")
+animation = &"move"
+autoplay = "move"
+
+[node name="shape" parent="." index="1"]
+shape = SubResource("CircleShape2D_ywsb6")
+
+[node name="life" parent="." index="2"]
+max_life = 20
+
+[node name="waitTime" type="Timer" parent="." index="4"]
+wait_time = 3.0
+
+[node name="Path2D" type="Path2D" parent="." index="5"]
+curve = SubResource("Curve2D_43op5")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
+rotation = 0.785398

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs4ktvngmvm57"]
+
+[ext_resource type="Script" path="res://assets/frugal_sound.gd" id="1_b07ml"]
+
+[node name="frugalSound" type="AudioStreamPlayer"]
+autoplay = true
+script = ExtResource("1_b07ml")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

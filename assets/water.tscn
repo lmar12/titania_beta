@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://ear7wdiut7rw"]
+
+[ext_resource type="Texture2D" uid="uid://ocat3q57j8b7" path="res://assets/water/front-water1.png" id="1_b7ajv"]
+[ext_resource type="Texture2D" uid="uid://dbhgxkal7aato" path="res://assets/water/front-water2.png" id="2_gx65s"]
+[ext_resource type="Texture2D" uid="uid://c6vh4k7w8t74i" path="res://assets/water/front-water3.png" id="3_3evlf"]
+[ext_resource type="Texture2D" uid="uid://d4ctsayp6e5vo" path="res://assets/water/front-water4.png" id="4_kkdmp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sod4f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_b7ajv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gx65s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3evlf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kkdmp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="water" type="AnimatedSprite2D"]
+texture_repeat = 3
+position = Vector2(32, 16)
+sprite_frames = SubResource("SpriteFrames_sod4f")
+autoplay = "default"
+frame_progress = 0.848733

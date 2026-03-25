@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://ci4l7p7u23xxr"]
+
+[ext_resource type="Texture2D" uid="uid://btaouaktbma13" path="res://assets/misc/playerfx/land/land-dust1.png" id="1_72ty6"]
+[ext_resource type="Texture2D" uid="uid://coxmh2n4dm0xg" path="res://assets/misc/playerfx/land/land-dust2.png" id="2_08mnj"]
+[ext_resource type="Texture2D" uid="uid://b554jqib7h02a" path="res://assets/misc/playerfx/land/land-dust3.png" id="3_qqr0v"]
+[ext_resource type="Texture2D" uid="uid://drki6iqerk8pc" path="res://assets/misc/playerfx/land/land-dust4.png" id="4_ug0xk"]
+[ext_resource type="Texture2D" uid="uid://qywii1vomjqx" path="res://assets/misc/playerfx/land/land-dust5.png" id="5_ucfln"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_72ty6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_08mnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qqr0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ug0xk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ucfln")
+}],
+"loop": false,
+"name": &"default",
+"speed": 7.0
+}]

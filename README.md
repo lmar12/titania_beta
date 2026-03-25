@@ -5,7 +5,7 @@ I plan to add two more levels, each with their bosses.
 In any case, this is a quick scratch (the mechanics still need a lot of work) of the game logic. I might rewrite it better later.
 
 First level preview
-![first level preview](/preview-2)
+![first level preview](/preview-2.png)
 
 Boss preview
-![first boss preview](/preview-1)
+![first boss preview](/preview-1.png)

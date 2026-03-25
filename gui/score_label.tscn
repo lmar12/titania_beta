@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvkj2ah6fmi58"]
+
+[ext_resource type="FontFile" uid="uid://dcf4cnv0cobf1" path="res://assets/fonts/AKDPixel.ttf" id="1_55kkf"]
+[ext_resource type="Script" path="res://gui/score_label.gd" id="2_n8dcx"]
+
+[node name="scoreLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_55kkf")
+text = "100"
+script = ExtResource("2_n8dcx")

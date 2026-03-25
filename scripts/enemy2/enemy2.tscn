@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://lrqtn1tum7l5"]
+
+[ext_resource type="Script" path="res://scripts/enemy2/enemy2.gd" id="1_me8tx"]
+[ext_resource type="Script" path="res://scripts/lifeComp.gd" id="2_ftxt6"]
+
+[node name="enemyAreaGD" type="Area2D" groups=["enemies2"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_me8tx")
+damage_given = 5
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="."]
+
+[node name="life" type="Node" parent="."]
+script = ExtResource("2_ftxt6")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="takeDamage" from="." to="." method="play_hit_sound"]
+[connection signal="takeDamage" from="." to="." method="set_hurt_sprite"]
+[connection signal="takeDamage" from="." to="life" method="take_damage"]
+[connection signal="life_depleted" from="life" to="." method="_on_life_life_depleted"]

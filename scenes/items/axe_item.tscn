@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbbrjvdanwend"]
+
+[ext_resource type="PackedScene" uid="uid://bujwln382uixu" path="res://scenes/items/throw_item.tscn" id="1_ktppx"]
+[ext_resource type="Texture2D" uid="uid://b6jjcr43h68kx" path="res://assets/misc/playerShot/axe.png" id="2_jkhrw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_os5go"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0iqsu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jkhrw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="axeItem" instance=ExtResource("1_ktppx")]
+score = 1000
+item_type = 4
+modifier = 2
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_os5go")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_0iqsu")

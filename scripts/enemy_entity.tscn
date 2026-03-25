@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cahjd1gu5qks8"]
+
+[ext_resource type="Script" path="res://enemy_entity.gd" id="1_xotga"]
+
+[node name="enemyEntity" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_xotga")
+total_life = 4
+death_color = Color(0.514326, 0.511423, 0.56229, 1)

@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvfd3pbpnl0sv"]
+
+[ext_resource type="PackedScene" uid="uid://bqjig3hmcc34k" path="res://scripts/player_shots/player_shots.tscn" id="1_ycts1"]
+[ext_resource type="Texture2D" uid="uid://b6jjcr43h68kx" path="res://assets/misc/playerShot/axe.png" id="2_27rff"]
+[ext_resource type="Texture2D" uid="uid://dkk8dsfnjovwk" path="res://assets/fx/impactShot.png" id="3_fbqc4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co1h5"]
+atlas = ExtResource("3_fbqc4")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1pls"]
+atlas = ExtResource("3_fbqc4")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0j3l8"]
+atlas = ExtResource("3_fbqc4")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cdt2"]
+atlas = ExtResource("3_fbqc4")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n2iff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_27rff")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co1h5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1pls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0j3l8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cdt2")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wr7w"]
+
+[node name="playerShots" instance=ExtResource("1_ycts1")]
+mass = 0.741
+angular_velocity = 174.533
+constant_force = Vector2(0, 0.975)
+constant_torque = 1400.0
+damage = 2
+impuls = Vector2(100, -400)
+gem_use = 2
+
+[node name="sprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_n2iff")
+animation = &"impact"
+autoplay = "idle"
+
+[node name="shape" parent="attackArea" index="0"]
+shape = SubResource("CircleShape2D_1wr7w")

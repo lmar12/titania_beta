@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d30a0f4xxuspy"]
+
+[ext_resource type="Theme" uid="uid://q6okyvs4fg3p" path="res://gui_theme_2.tres" id="1_g00oi"]
+[ext_resource type="Script" path="res://gui/status_hint.gd" id="1_iww8t"]
+[ext_resource type="Texture2D" uid="uid://dhw7dy146ypqt" path="res://assets/gui/lifeBarUnder1.png" id="3_dt3c6"]
+[ext_resource type="Texture2D" uid="uid://bq7fjb8omrv4a" path="res://assets/gui/lifeBarProgress1.png" id="4_tc11k"]
+
+[node name="statusHint" type="HBoxContainer"]
+script = ExtResource("1_iww8t")
+
+[node name="text" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_g00oi")
+text = "PLAYER"
+
+[node name="defaultBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 20.0
+value = 4.0
+texture_under = ExtResource("3_dt3c6")
+texture_progress = ExtResource("4_tc11k")

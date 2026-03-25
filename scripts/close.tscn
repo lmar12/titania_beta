@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://56hreyinnvhw"]
+
+[ext_resource type="Script" path="res://scripts/close.gd" id="1_m62vx"]
+
+[node name="close" type="CanvasLayer"]
+layer = 5
+visible = false
+script = ExtResource("1_m62vx")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="scr" type="Polygon2D" parent="Node"]
+position = Vector2(672, 256)
+rotation = 3.14159
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(320, 0, 352, 24, 320, 48, 352, 72, 320, 96, 352, 128, 320, 152, 352, 176, 320, 208, 352, 232, 320, 256, -8, 256, -8, -8, 320, -8)

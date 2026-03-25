@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3v6teuqqy8ii"]
+
+[ext_resource type="Script" path="res://scripts/game_behaviors.gd" id="1_ksj0y"]
+[ext_resource type="AudioStream" uid="uid://db78s1d113i7v" path="res://assets/sounds/Retro Event UI 13.wav" id="2_qy7re"]
+
+[node name="gameBehaviors" type="Node"]
+process_mode = 3
+script = ExtResource("1_ksj0y")
+
+[node name="pauseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_qy7re")

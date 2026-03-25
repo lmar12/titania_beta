@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://60f3bimpt7av"]
+
+[ext_resource type="Script" path="res://scripts/jumpin_enemy/jumpin_enemy.gd" id="1_mqlt4"]
+
+[node name="jumpinEnemy" type="Area2D"]
+script = ExtResource("1_mqlt4")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="."]
+
+[node name="jumpTime" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="jumpTime" to="." method="_on_jump_time_timeout"]

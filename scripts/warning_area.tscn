@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://pf11fmp84l1p"]
+
+[ext_resource type="Texture2D" uid="uid://wc4trdm3vytf" path="res://assets/fx/spark.png" id="1_8frpj"]
+[ext_resource type="Script" path="res://scripts/warning_area.gd" id="2_npbqh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r0dnw"]
+blend_mode = 2
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5cb8"]
+atlas = ExtResource("1_8frpj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e5mr4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5cb8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="warningArea" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_r0dnw")
+scale = Vector2(2.04, 2.04)
+sprite_frames = SubResource("SpriteFrames_e5mr4")
+script = ExtResource("2_npbqh")
+final_scale = Vector2(0.5, 0.5)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

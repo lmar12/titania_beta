@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6bhvhe5mgjbp"]
+
+[ext_resource type="Script" path="res://scripts/fireshower.gd" id="1_kvr05"]
+
+[sub_resource type="Curve2D" id="Curve2D_w8vu0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 296, 0, 0, 0, 0, 0, 24, 0)
+}
+point_count = 2
+
+[node name="fireshower" type="Path2D"]
+curve = SubResource("Curve2D_w8vu0")
+script = ExtResource("1_kvr05")
+
+[node name="follow2d" type="PathFollow2D" parent="."]
+position = Vector2(296, 0)
+rotation = 3.14159
+
+[node name="wait" type="Timer" parent="."]
+one_shot = true
+
+[node name="spawnTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]

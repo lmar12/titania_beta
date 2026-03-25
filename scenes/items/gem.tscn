@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2ej40482w75m"]
+
+[ext_resource type="PackedScene" uid="uid://buli3eoy0y5gx" path="res://scenes/misc/items/item.tscn" id="1_7i7la"]
+[ext_resource type="Texture2D" uid="uid://bw8ugmkccmrtw" path="res://assets/misc/items/gem/items.png" id="2_xv5gf"]
+[ext_resource type="AudioStream" uid="uid://c1udoo1ej8uvd" path="res://assets/sounds/pickup.wav" id="3_6qjoh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pkij"]
+size = Vector2(10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y53h0"]
+atlas = ExtResource("2_xv5gf")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3prd1"]
+atlas = ExtResource("2_xv5gf")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6maeu"]
+atlas = ExtResource("2_xv5gf")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otep0"]
+atlas = ExtResource("2_xv5gf")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r3x0d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y53h0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3prd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6maeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otep0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="gem" instance=ExtResource("1_7i7la")]
+score = 10
+gravity_force = 10.039
+
+[node name="CollisionShape2D" parent="." index="0"]
+visible = false
+shape = SubResource("RectangleShape2D_6pkij")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_r3x0d")
+autoplay = "default"
+frame_progress = 0.616518
+
+[node name="down" parent="." index="2"]
+visible = false
+
+[node name="pickSound" parent="." index="3"]
+stream = ExtResource("3_6qjoh")
+volume_db = -7.429
+bus = &"gem_bus"

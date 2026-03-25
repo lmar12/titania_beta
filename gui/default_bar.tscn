@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bracanaiu03dc"]
+
+[ext_resource type="Texture2D" uid="uid://dhw7dy146ypqt" path="res://assets/gui/lifeBarUnder1.png" id="1_b6rka"]
+[ext_resource type="Texture2D" uid="uid://bq7fjb8omrv4a" path="res://assets/gui/lifeBarProgress1.png" id="2_rfssr"]
+
+[node name="defaultBar" type="TextureProgressBar"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 5.0
+value = 10.0
+texture_under = ExtResource("1_b6rka")
+texture_progress = ExtResource("2_rfssr")

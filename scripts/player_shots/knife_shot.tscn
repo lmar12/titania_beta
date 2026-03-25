@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://76y0fhcg3xi7"]
+
+[ext_resource type="PackedScene" uid="uid://bqjig3hmcc34k" path="res://scripts/player_shots/player_shots.tscn" id="1_rhbsw"]
+[ext_resource type="Texture2D" uid="uid://cf0ku47sd5vdd" path="res://assets/misc/items/dagger.png" id="2_a4ho4"]
+[ext_resource type="Texture2D" uid="uid://dkk8dsfnjovwk" path="res://assets/fx/impactShot.png" id="3_a0h15"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cw5wx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50i5m"]
+atlas = ExtResource("3_a0h15")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akxni"]
+atlas = ExtResource("3_a0h15")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gilr8"]
+atlas = ExtResource("3_a0h15")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nfdo"]
+atlas = ExtResource("3_a0h15")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqhax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a4ho4")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50i5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akxni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gilr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nfdo")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yhp1f"]
+radius = 8.0
+
+[node name="knifeShot" instance=ExtResource("1_rhbsw")]
+mass = 0.514
+physics_material_override = SubResource("PhysicsMaterial_cw5wx")
+gravity_scale = 0.439
+angular_velocity = 15.708
+constant_force = Vector2(0, -150)
+damage = 1
+impuls = Vector2(250, 0)
+gem_use = 1
+
+[node name="sprite" parent="." index="0"]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_nqhax")
+animation = &"impact"
+autoplay = "idle"
+
+[node name="shape" parent="attackArea" index="0"]
+shape = SubResource("CircleShape2D_yhp1f")

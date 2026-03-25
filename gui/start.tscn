@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://cahi3kqbc2uvc"]
+
+[ext_resource type="Theme" uid="uid://q6okyvs4fg3p" path="res://gui_theme_2.tres" id="1_5g5pw"]
+[ext_resource type="Script" path="res://gui/start.gd" id="1_srts8"]
+[ext_resource type="Texture2D" uid="uid://8sh1njm14g66" path="res://gui/adventurer-idle-00.png" id="2_i23nb"]
+[ext_resource type="AudioStream" uid="uid://cgwnhek346s2g" path="res://gui/start_gui.mp3" id="4_hmua7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w82ig"]
+atlas = ExtResource("2_i23nb")
+region = Rect2(16, 4, 20, 12)
+
+[node name="start" type="CanvasLayer"]
+script = ExtResource("1_srts8")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="scr" type="Polygon2D" parent="Node"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(320, 0, 352, 24, 320, 48, 352, 72, 320, 96, 352, 128, 320, 152, 352, 176, 320, 208, 352, 232, 320, 256, -8, 256, -8, -8, 320, -8)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 320.0
+offset_bottom = 248.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_right = 320.0
+offset_bottom = 248.0
+theme = ExtResource("1_5g5pw")
+theme_type_variation = &"start_gui"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "PLAYER START!"
+vertical_alignment = 1
+
+[node name="ReferenceRect" type="ReferenceRect" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+border_color = Color(1, 1, 1, 0)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_w82ig")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "x inf"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hmua7")
+autoplay = true
+
+[connection signal="finished" from="start" to="." method="_on_start_finished"]

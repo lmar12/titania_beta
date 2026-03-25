@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxchj0sqkn5p6"]
+
+[ext_resource type="Script" path="res://scripts/jumpin_enemy/jump_prop.gd" id="1_q6we5"]
+
+[node name="jumpProp" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_q6we5")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="."]
+
+[node name="again" type="Timer" parent="."]
+one_shot = true
+
+[node name="hurtArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="shape" type="CollisionShape2D" parent="hurtArea"]
+
+[connection signal="timeout" from="again" to="." method="_on_again_timeout"]
+[connection signal="body_entered" from="hurtArea" to="." method="_on_hurt_area_body_entered"]

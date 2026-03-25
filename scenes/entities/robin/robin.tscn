@@ -1,0 +1,123 @@
+[gd_scene load_steps=22 format=3 uid="uid://cculn34135y3y"]
+
+[ext_resource type="Texture2D" uid="uid://cf72xkuxiuu1p" path="res://assets/entities/robin/no-particles/frame1.png" id="1_7ub3j"]
+[ext_resource type="Script" path="res://scripts/behavior/actor_behavior.gd" id="1_fo3s6"]
+[ext_resource type="Script" path="res://scenes/entities/robin/robin.gd" id="1_nj2rg"]
+[ext_resource type="Texture2D" uid="uid://dhw7uu245a2og" path="res://assets/entities/robin/no-particles/frame2.png" id="2_g2qwb"]
+[ext_resource type="Script" path="res://scripts/behavior/sine_side_movement.gd" id="2_o558g"]
+[ext_resource type="Texture2D" uid="uid://bxkui8qpeac7b" path="res://assets/entities/robin/Particles/frame1.png" id="3_3uw6h"]
+[ext_resource type="Texture2D" uid="uid://bjq4gxg71f7qp" path="res://assets/entities/robin/no-particles/frame3.png" id="3_aaxsh"]
+[ext_resource type="Texture2D" uid="uid://c0k07xw38s683" path="res://assets/entities/robin/no-particles/frame4.png" id="4_6cf6b"]
+[ext_resource type="Texture2D" uid="uid://bqhoyt7q5u6mw" path="res://assets/entities/robin/Particles/frame2.png" id="4_i4x36"]
+[ext_resource type="Script" path="res://scripts/lifeComp.gd" id="4_vyjej"]
+[ext_resource type="Texture2D" uid="uid://cbxgtdw8unf3e" path="res://assets/entities/robin/no-particles/frame5.png" id="5_65y1y"]
+[ext_resource type="Texture2D" uid="uid://dnk6jikag1m11" path="res://assets/entities/robin/Particles/frame3.png" id="5_vgsri"]
+[ext_resource type="Texture2D" uid="uid://dx8fyny2xwrlr" path="res://assets/entities/robin/Particles/frame4.png" id="6_p4uhm"]
+[ext_resource type="Texture2D" uid="uid://bbqnhn52k18qp" path="res://assets/entities/robin/no-particles/frame6.png" id="6_wh6n0"]
+[ext_resource type="Texture2D" uid="uid://vu42dbly1dyk" path="res://assets/entities/robin/Particles/frame5.png" id="7_j660v"]
+[ext_resource type="Script" path="res://scripts/behavior/sprite_entity.gd" id="7_kduid"]
+[ext_resource type="Texture2D" uid="uid://dwciafq0gf2ri" path="res://assets/entities/robin/Particles/frame6.png" id="8_lr1bh"]
+[ext_resource type="Script" path="res://scripts/behavior/enemy_area.gd" id="18_6jokk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2b84k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3uw6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i4x36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vgsri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_p4uhm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_j660v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_lr1bh")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7ub3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g2qwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_aaxsh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6cf6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_65y1y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wh6n0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a36wj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n6rpe"]
+
+[node name="robin" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_nj2rg")
+
+[node name="ActorBehavior" type="Node" parent="."]
+script = ExtResource("1_fo3s6")
+speed = 12.424
+
+[node name="SineSideMovement" type="Node" parent="." node_paths=PackedStringArray("entity_body", "actor_behavior")]
+script = ExtResource("2_o558g")
+entity_body = NodePath("..")
+actor_behavior = NodePath("../ActorBehavior")
+amplitude = 7.218
+travel_length = 32.19
+ratio = 330.639
+play = false
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("4_vyjej")
+max_life = 2
+
+[node name="SpriteEntity" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("actor_behavior")]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_2b84k")
+animation = &"idle"
+frame_progress = 0.0764599
+offset = Vector2(0, -5)
+flip_h = true
+script = ExtResource("7_kduid")
+actor_behavior = NodePath("../ActorBehavior")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_a36wj")
+
+[node name="EnemyArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("18_6jokk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea"]
+shape = SubResource("CircleShape2D_n6rpe")
+
+[connection signal="take_damage" from="." to="." method="damage"]
+[connection signal="is_playing" from="SineSideMovement" to="." method="set_idle_anim"]
+[connection signal="not_playing" from="SineSideMovement" to="." method="set_attack_anim"]
+[connection signal="life_depleted" from="LifeComponent" to="." method="death"]

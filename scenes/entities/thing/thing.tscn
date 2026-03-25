@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://dfjj06f3uwo55"]
+
+[ext_resource type="Script" path="res://scenes/entities/thing/thing.gd" id="1_cbdsd"]
+[ext_resource type="SpriteFrames" uid="uid://cs10o42rsobpo" path="res://assets/entities/thing/thingSprite.tres" id="1_l55gf"]
+[ext_resource type="Script" path="res://scripts/behavior/sprite_entity.gd" id="2_1xb16"]
+[ext_resource type="Script" path="res://scripts/behavior/actor_behavior.gd" id="3_mmcfb"]
+[ext_resource type="Script" path="res://scripts/behavior/side_movement.gd" id="4_r76ug"]
+[ext_resource type="Script" path="res://scripts/lifeComp.gd" id="5_csoho"]
+[ext_resource type="Script" path="res://scripts/behavior/enemy_area.gd" id="7_lptmt"]
+[ext_resource type="AudioStream" uid="uid://drh811inehqwm" path="res://assets/sounds/Retro Roar 02.wav" id="8_ut8dg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uql04"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6d76i"]
+size = Vector2(20, 26)
+
+[node name="thing" type="CharacterBody2D" groups=["enemies"]]
+position = Vector2(16, -16)
+collision_layer = 4
+script = ExtResource("1_cbdsd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_uql04")
+
+[node name="ActorBehavior" type="Node" parent="."]
+script = ExtResource("3_mmcfb")
+speed = 11.006
+default_direction = -1
+
+[node name="SideMovement" type="Node" parent="." node_paths=PackedStringArray("entity_body", "actor_behavior", "left_ray", "right_ray")]
+script = ExtResource("4_r76ug")
+entity_body = NodePath("..")
+actor_behavior = NodePath("../ActorBehavior")
+left_ray = NodePath("../leftRay")
+right_ray = NodePath("../rightRay")
+
+[node name="SpriteEntity" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("actor_behavior")]
+scale = Vector2(0.742424, 0.742424)
+sprite_frames = ExtResource("1_l55gf")
+autoplay = "default"
+frame_progress = 0.512463
+speed_scale = 0.6
+script = ExtResource("2_1xb16")
+actor_behavior = NodePath("../ActorBehavior")
+
+[node name="rightRay" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(8, 0)
+target_position = Vector2(0, 24)
+
+[node name="leftRay" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(-8, 0)
+target_position = Vector2(0, 24)
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("5_csoho")
+max_life = 1
+
+[node name="EnemyArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("7_lptmt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea"]
+shape = SubResource("RectangleShape2D_6d76i")
+
+[node name="dieSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ut8dg")
+
+[connection signal="take_damage" from="." to="." method="damage"]
+[connection signal="life_depleted" from="LifeComponent" to="." method="death"]
+[connection signal="body_entered" from="EnemyArea" to="EnemyArea" method="_on_body_entered"]

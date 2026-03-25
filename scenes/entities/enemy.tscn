@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://da4g35yngkv5j"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_0xu8c"]
+[ext_resource type="Script" path="res://scripts/behavior/enemy_area.gd" id="2_2jffy"]
+[ext_resource type="Script" path="res://scripts/behavior/sprite_entity.gd" id="3_m2rr2"]
+[ext_resource type="Script" path="res://scripts/behavior/actor_behavior.gd" id="4_rmpt3"]
+[ext_resource type="Script" path="res://scripts/lifeComp.gd" id="5_yjxuh"]
+
+[node name="enemy" type="CharacterBody2D" groups=["enemies"]]
+process_priority = 1
+collision_layer = 4
+script = ExtResource("1_0xu8c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="EnemyArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_2jffy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea"]
+
+[node name="SpriteEntity" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("actor_behavior")]
+script = ExtResource("3_m2rr2")
+actor_behavior = NodePath("../ActorBehavior")
+
+[node name="ActorBehavior" type="Node" parent="."]
+script = ExtResource("4_rmpt3")
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("5_yjxuh")
+
+[connection signal="take_damage" from="." to="SpriteEntity" method="simul_damage"]
+[connection signal="take_damage" from="." to="LifeComponent" method="take_damage"]
+[connection signal="body_entered" from="EnemyArea" to="EnemyArea" method="_on_body_entered"]
+[connection signal="life_depleted" from="LifeComponent" to="." method="_on_life_depleted"]

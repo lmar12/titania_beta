@@ -1,0 +1,125 @@
+[gd_scene load_steps=16 format=3 uid="uid://cbs7mf5c5fdfj"]
+
+[ext_resource type="PackedScene" uid="uid://da4g35yngkv5j" path="res://scenes/entities/enemy.tscn" id="1_srkgo"]
+[ext_resource type="Texture2D" uid="uid://bnunrcuhdnmk8" path="res://assets/entities/pegasus/idle.png" id="2_68eh0"]
+[ext_resource type="Texture2D" uid="uid://cig6lui460rlv" path="res://assets/entities/pegasus/run.png" id="3_vkah6"]
+[ext_resource type="Script" path="res://scripts/behavior/side_movement_jump.gd" id="4_scxpv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usqgl"]
+size = Vector2(40, 34)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wyhp0"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw1ev"]
+atlas = ExtResource("2_68eh0")
+region = Rect2(0, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gaxrm"]
+atlas = ExtResource("2_68eh0")
+region = Rect2(160, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtcbw"]
+atlas = ExtResource("2_68eh0")
+region = Rect2(320, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v06e4"]
+atlas = ExtResource("2_68eh0")
+region = Rect2(480, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6h5h"]
+atlas = ExtResource("3_vkah6")
+region = Rect2(0, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kieu1"]
+atlas = ExtResource("3_vkah6")
+region = Rect2(0, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xaia"]
+atlas = ExtResource("3_vkah6")
+region = Rect2(160, 0, 160, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7q15"]
+atlas = ExtResource("3_vkah6")
+region = Rect2(320, 0, 160, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5mil"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hw1ev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gaxrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtcbw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v06e4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6h5h")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kieu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xaia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7q15")
+}],
+"loop": true,
+"name": &"run",
+"speed": 4.0
+}]
+
+[node name="pegasus" instance=ExtResource("1_srkgo")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-4, 7)
+shape = SubResource("RectangleShape2D_usqgl")
+
+[node name="CollisionShape2D" parent="EnemyArea" index="0"]
+position = Vector2(-4, 7)
+shape = SubResource("CircleShape2D_wyhp0")
+
+[node name="SpriteEntity" parent="." index="2"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_j5mil")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.0948738
+
+[node name="ActorBehavior" parent="." index="3"]
+speed = 59.808
+default_direction = -1
+
+[node name="LifeComponent" parent="." index="4"]
+max_life = 4
+
+[node name="SideMovementWithJump" type="Node" parent="." index="5" node_paths=PackedStringArray("direction_ray", "sprite", "entity_body", "actor_behavior")]
+script = ExtResource("4_scxpv")
+jump_speed = 32.731
+direction_ray = NodePath("../left")
+sprite = NodePath("../SpriteEntity")
+entity_body = NodePath("..")
+actor_behavior = NodePath("../ActorBehavior")
+red_turtleish = false
+
+[node name="left" type="RayCast2D" parent="." index="6"]
+position = Vector2(-8, 8)
+target_position = Vector2(-32, 0)
+collision_mask = 2147483649
+hit_from_inside = true

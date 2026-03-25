@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=3 uid="uid://ebht8rjyvjg6"]
+
+[ext_resource type="PackedScene" uid="uid://lrqtn1tum7l5" path="res://scripts/enemy2/enemy2.tscn" id="1_3ynme"]
+[ext_resource type="Texture2D" uid="uid://32mdidsdy27e" path="res://assets/entities/flying_eye/Flight.png" id="2_nmfdh"]
+[ext_resource type="Script" path="res://scenes/entities/flying_eye/flying_eye.gd" id="2_vfwmp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l00ry"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1wgl"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83x5s"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh30j"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owgqc"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ahfb"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uufl5"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io6iu"]
+atlas = ExtResource("2_nmfdh")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bpkbp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l00ry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1wgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83x5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh30j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owgqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ahfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uufl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io6iu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u160a"]
+radius = 16.0
+
+[node name="flying_eye" instance=ExtResource("1_3ynme")]
+script = ExtResource("2_vfwmp")
+final_position = Vector2(0, 0)
+duration = 3
+speed = 2.303
+score = 300
+
+[node name="sprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_bpkbp")
+autoplay = "default"
+frame_progress = 0.930775
+
+[node name="shape" parent="." index="1"]
+shape = SubResource("CircleShape2D_u160a")
+
+[node name="life" parent="." index="2"]
+max_life = 2

@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://hqqwxo7m8p6o"]
+
+[ext_resource type="PackedScene" uid="uid://da4g35yngkv5j" path="res://scenes/entities/enemy.tscn" id="1_skl2r"]
+[ext_resource type="Texture2D" uid="uid://c224ee8svnpup" path="res://assets/entities/thing/thing1.png" id="2_xs1n2"]
+[ext_resource type="Texture2D" uid="uid://daajocv3ot1ip" path="res://assets/entities/thing/thing2.png" id="3_l3s0l"]
+[ext_resource type="Texture2D" uid="uid://bem26jyreph2g" path="res://assets/entities/thing/thing3.png" id="4_s75kx"]
+[ext_resource type="Texture2D" uid="uid://b1odjev3gwpd0" path="res://assets/entities/thing/thing4.png" id="5_xm1sc"]
+[ext_resource type="Script" path="res://scripts/behavior/side_movement.gd" id="6_fyy28"]
+[ext_resource type="AudioStream" uid="uid://drh811inehqwm" path="res://assets/sounds/Retro Roar 02.wav" id="7_fbuny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5w33"]
+size = Vector2(20, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jn3hq"]
+size = Vector2(20, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jge88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xs1n2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l3s0l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s75kx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xm1sc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="thing" instance=ExtResource("1_skl2r")]
+score = 100
+death_color = Color(1, 0.172549, 1, 1)
+explosion_scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" parent="." index="0"]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_f5w33")
+
+[node name="CollisionShape2D" parent="EnemyArea" index="0"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_jn3hq")
+
+[node name="SpriteEntity" parent="." index="2"]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_jge88")
+autoplay = "default"
+
+[node name="ActorBehavior" parent="." index="3"]
+speed = 9.462
+default_direction = -1
+
+[node name="LifeComponent" parent="." index="4"]
+max_life = 2
+
+[node name="SideMovement" type="Node" parent="." index="5" node_paths=PackedStringArray("entity_body", "actor_behavior", "left_ray", "right_ray")]
+script = ExtResource("6_fyy28")
+entity_body = NodePath("..")
+actor_behavior = NodePath("../ActorBehavior")
+left_ray = NodePath("../RayCast2D")
+right_ray = NodePath("../RayCast2D2")
+
+[node name="hurtSound" parent="." index="6"]
+stream = ExtResource("7_fbuny")
+
+[node name="RayCast2D2" type="RayCast2D" parent="." index="7"]
+position = Vector2(10, 16)
+target_position = Vector2(0, 8)
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="8"]
+position = Vector2(-8, 16)
+target_position = Vector2(0, 8)
+
+[connection signal="desactivate" from="EnemyArea" to="EnemyArea" method="_on_desactivate"]

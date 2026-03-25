@@ -1,0 +1,159 @@
+[gd_scene load_steps=24 format=3 uid="uid://8j7doqn1asmn"]
+
+[ext_resource type="PackedScene" uid="uid://dt7kdveux6scu" path="res://scripts/simulBody/simulBody.tscn" id="1_0brwn"]
+[ext_resource type="Texture2D" uid="uid://c5xgm43bwipka" path="res://assets/entities/skeleton/Attack.png" id="2_8k47k"]
+[ext_resource type="Script" path="res://scenes/entities/skeleton/warrior_skeleton.gd" id="2_x6igt"]
+[ext_resource type="Texture2D" uid="uid://d3kibd5u3s1mi" path="res://assets/entities/skeleton/Idle.png" id="3_a368y"]
+[ext_resource type="AudioStream" uid="uid://dsfpbcua2wwhl" path="res://assets/sounds/hurt.mp3" id="3_sk5kl"]
+[ext_resource type="Texture2D" uid="uid://c7bnbkmg41456" path="res://assets/entities/skeleton/Shield.png" id="4_411no"]
+[ext_resource type="AudioStream" uid="uid://bd6mycup5l4s1" path="res://assets/sounds/deathDefault.wav" id="4_kf714"]
+[ext_resource type="Texture2D" uid="uid://5y7osk750khi" path="res://assets/entities/skeleton/Walk.png" id="4_ou7qv"]
+[ext_resource type="Script" path="res://scripts/behavior/blade_area.gd" id="5_otm1q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tws2k"]
+atlas = ExtResource("2_8k47k")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sielk"]
+atlas = ExtResource("2_8k47k")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1h2s"]
+atlas = ExtResource("2_8k47k")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnhn1"]
+atlas = ExtResource("4_411no")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhp04"]
+atlas = ExtResource("3_a368y")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko7bs"]
+atlas = ExtResource("3_a368y")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t13t"]
+atlas = ExtResource("3_a368y")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13v0h"]
+atlas = ExtResource("3_a368y")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn1ij"]
+atlas = ExtResource("4_ou7qv")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekn2e"]
+atlas = ExtResource("4_ou7qv")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f7ar"]
+atlas = ExtResource("4_ou7qv")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_timig"]
+atlas = ExtResource("4_ou7qv")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37pum"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tws2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sielk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1h2s")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnhn1")
+}],
+"loop": true,
+"name": &"engarde",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhp04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko7bs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t13t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13v0h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fn1ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekn2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f7ar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_timig")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrrgj"]
+size = Vector2(45, 20)
+
+[node name="warriorSkeleton" instance=ExtResource("1_0brwn")]
+script = ExtResource("2_x6igt")
+min_distance = 35.0
+search_radius = 15.0
+can_fall = false
+speed = 4.473
+score = 1000
+gravity_scale = 9.559
+hit_sound = ExtResource("3_sk5kl")
+death_sound = ExtResource("4_kf714")
+
+[node name="sprite" parent="." index="0"]
+position = Vector2(-2, -2)
+sprite_frames = SubResource("SpriteFrames_37pum")
+animation = &"attack"
+autoplay = "idle"
+frame = 2
+frame_progress = 1.0
+
+[node name="life" parent="." index="2"]
+max_life = 3
+
+[node name="bladeArea" type="Area2D" parent="." index="8"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("5_otm1q")
+blade_power = 3
+attack_duration = 0.7
+
+[node name="shape" type="CollisionShape2D" parent="bladeArea" index="0"]
+position = Vector2(12.5, 0)
+shape = SubResource("RectangleShape2D_wrrgj")
+
+[connection signal="life_depleted" from="life" to="." method="destructor"]
+[connection signal="body_entered" from="bladeArea" to="bladeArea" method="_on_body_entered"]
+[connection signal="finished" from="bladeArea" to="." method="_on_blade_area_finished"]
+[connection signal="started" from="bladeArea" to="." method="_on_blade_area_started"]

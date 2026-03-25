@@ -1,0 +1,101 @@
+[gd_scene load_steps=20 format=3 uid="uid://duot6m4v6g7pw"]
+
+[ext_resource type="PackedScene" uid="uid://lrqtn1tum7l5" path="res://scripts/enemy2/enemy2.tscn" id="1_g61ss"]
+[ext_resource type="Texture2D" uid="uid://cf72xkuxiuu1p" path="res://assets/entities/robin/no-particles/frame1.png" id="2_rpyu2"]
+[ext_resource type="Script" path="res://scenes/entities/robin/robin_3.gd" id="2_y3doo"]
+[ext_resource type="Texture2D" uid="uid://dhw7uu245a2og" path="res://assets/entities/robin/no-particles/frame2.png" id="3_63ocm"]
+[ext_resource type="AudioStream" uid="uid://brwdpk05gd5gm" path="res://assets/sounds/hurt.wav" id="3_i584y"]
+[ext_resource type="Texture2D" uid="uid://bxkui8qpeac7b" path="res://assets/entities/robin/Particles/frame1.png" id="3_pija2"]
+[ext_resource type="Texture2D" uid="uid://bjq4gxg71f7qp" path="res://assets/entities/robin/no-particles/frame3.png" id="4_8crx5"]
+[ext_resource type="Texture2D" uid="uid://bqhoyt7q5u6mw" path="res://assets/entities/robin/Particles/frame2.png" id="4_77chf"]
+[ext_resource type="AudioStream" uid="uid://bd6mycup5l4s1" path="res://assets/sounds/deathDefault.wav" id="4_u8rat"]
+[ext_resource type="Texture2D" uid="uid://dnk6jikag1m11" path="res://assets/entities/robin/Particles/frame3.png" id="5_4p8nk"]
+[ext_resource type="Texture2D" uid="uid://c0k07xw38s683" path="res://assets/entities/robin/no-particles/frame4.png" id="5_dddey"]
+[ext_resource type="Texture2D" uid="uid://cbxgtdw8unf3e" path="res://assets/entities/robin/no-particles/frame5.png" id="6_6uorr"]
+[ext_resource type="Texture2D" uid="uid://dx8fyny2xwrlr" path="res://assets/entities/robin/Particles/frame4.png" id="6_wuw8b"]
+[ext_resource type="Texture2D" uid="uid://vu42dbly1dyk" path="res://assets/entities/robin/Particles/frame5.png" id="7_5nbk8"]
+[ext_resource type="Texture2D" uid="uid://bbqnhn52k18qp" path="res://assets/entities/robin/no-particles/frame6.png" id="7_gqthx"]
+[ext_resource type="Texture2D" uid="uid://dwciafq0gf2ri" path="res://assets/entities/robin/Particles/frame6.png" id="8_msbfq"]
+[ext_resource type="PackedScene" uid="uid://pf11fmp84l1p" path="res://scripts/warning_area.tscn" id="15_7vjkf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_enutq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_pija2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_77chf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4p8nk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wuw8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5nbk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_msbfq")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rpyu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_63ocm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8crx5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dddey")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6uorr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gqthx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k1r7a"]
+radius = 8.0
+
+[node name="robin" instance=ExtResource("1_g61ss")]
+script = ExtResource("2_y3doo")
+radius = 45.0
+speed = 1.2
+score = 300
+hit_sound = ExtResource("3_i584y")
+death_sound = ExtResource("4_u8rat")
+
+[node name="warningArea" parent="." index="0" instance=ExtResource("15_7vjkf")]
+final_scale = Vector2(1, 1)
+
+[node name="sprite" parent="." index="1"]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_enutq")
+animation = &"attack"
+autoplay = "idle"
+
+[node name="shape" parent="." index="2"]
+shape = SubResource("CircleShape2D_k1r7a")
+
+[node name="life" parent="." index="3"]
+max_life = 2
+
+[node name="shootTime" type="Timer" parent="." index="5"]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="life_depleted" from="life" to="." method="_set_dead"]
+[connection signal="timeout" from="shootTime" to="." method="_on_shoot_time_timeout"]

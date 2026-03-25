@@ -1,0 +1,115 @@
+[gd_scene load_steps=20 format=3 uid="uid://day6g70avx2r4"]
+
+[ext_resource type="PackedScene" uid="uid://da4g35yngkv5j" path="res://scenes/entities/enemy.tscn" id="1_mgrf7"]
+[ext_resource type="Texture2D" uid="uid://bxkui8qpeac7b" path="res://assets/entities/robin/Particles/frame1.png" id="2_am8sd"]
+[ext_resource type="Script" path="res://scenes/entities/robin/robin_2.gd" id="2_shtn6"]
+[ext_resource type="AudioStream" uid="uid://dsfpbcua2wwhl" path="res://assets/sounds/hurt.mp3" id="3_u784a"]
+[ext_resource type="Texture2D" uid="uid://bqhoyt7q5u6mw" path="res://assets/entities/robin/Particles/frame2.png" id="3_ytr0l"]
+[ext_resource type="Texture2D" uid="uid://dnk6jikag1m11" path="res://assets/entities/robin/Particles/frame3.png" id="4_wdghl"]
+[ext_resource type="Texture2D" uid="uid://dx8fyny2xwrlr" path="res://assets/entities/robin/Particles/frame4.png" id="5_h2wgo"]
+[ext_resource type="Texture2D" uid="uid://vu42dbly1dyk" path="res://assets/entities/robin/Particles/frame5.png" id="6_7tkq8"]
+[ext_resource type="Texture2D" uid="uid://dwciafq0gf2ri" path="res://assets/entities/robin/Particles/frame6.png" id="7_ctbqa"]
+[ext_resource type="Texture2D" uid="uid://cf72xkuxiuu1p" path="res://assets/entities/robin/no-particles/frame1.png" id="8_xry2k"]
+[ext_resource type="Texture2D" uid="uid://dhw7uu245a2og" path="res://assets/entities/robin/no-particles/frame2.png" id="9_ftv50"]
+[ext_resource type="Texture2D" uid="uid://bjq4gxg71f7qp" path="res://assets/entities/robin/no-particles/frame3.png" id="10_18016"]
+[ext_resource type="Texture2D" uid="uid://c0k07xw38s683" path="res://assets/entities/robin/no-particles/frame4.png" id="11_ec3ok"]
+[ext_resource type="Texture2D" uid="uid://cbxgtdw8unf3e" path="res://assets/entities/robin/no-particles/frame5.png" id="12_pudta"]
+[ext_resource type="Texture2D" uid="uid://bbqnhn52k18qp" path="res://assets/entities/robin/no-particles/frame6.png" id="13_46mg7"]
+[ext_resource type="Script" path="res://scripts/behavior/sine_side_movement.gd" id="14_snpt1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ji23"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gobvo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_edgjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_am8sd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ytr0l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wdghl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h2wgo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7tkq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ctbqa")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_xry2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ftv50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_18016")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ec3ok")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_pudta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_46mg7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[node name="robin" instance=ExtResource("1_mgrf7")]
+motion_mode = 1
+script = ExtResource("2_shtn6")
+score = 300
+death_audio = ExtResource("3_u784a")
+
+[node name="CollisionShape2D" parent="." index="0"]
+visible = false
+shape = SubResource("RectangleShape2D_0ji23")
+
+[node name="EnemyArea" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="EnemyArea" index="0"]
+shape = SubResource("CircleShape2D_gobvo")
+
+[node name="SpriteEntity" parent="." index="2"]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_edgjt")
+animation = &"idle"
+autoplay = "idle"
+flip_h = true
+
+[node name="ActorBehavior" parent="." index="3"]
+speed = 17.923
+default_direction = 1
+
+[node name="LifeComponent" parent="." index="4"]
+max_life = 2
+
+[node name="SineSideMovement" type="Node" parent="." index="5" node_paths=PackedStringArray("entity_body", "actor_behavior")]
+script = ExtResource("14_snpt1")
+entity_body = NodePath("..")
+actor_behavior = NodePath("../ActorBehavior")
+amplitude = 4.001
+travel_length = 21.94
+ratio = 175.641
+
+[node name="shootAwait" type="Timer" parent="." index="6"]
+wait_time = 2.0
+
+[connection signal="take_damage" from="." to="LifeComponent" method="take_damage"]
+[connection signal="timeout" from="shootAwait" to="." method="_on_shoot_await_timeout"]

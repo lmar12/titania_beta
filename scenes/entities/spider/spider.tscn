@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://cympxaik0et6w"]
+
+[ext_resource type="PackedScene" uid="uid://lrqtn1tum7l5" path="res://scripts/enemy2/enemy2.tscn" id="1_pingb"]
+[ext_resource type="Texture2D" uid="uid://c5q46sdcxqejy" path="res://assets/entities/spider/spider1.png" id="2_1frrk"]
+[ext_resource type="Script" path="res://scenes/entities/spider/spider.gd" id="2_lkniy"]
+[ext_resource type="AudioStream" uid="uid://brwdpk05gd5gm" path="res://assets/sounds/hurt.wav" id="3_5ltgi"]
+[ext_resource type="Texture2D" uid="uid://ckacuhh71rfub" path="res://assets/entities/spider/spider2.png" id="3_dtvo4"]
+[ext_resource type="Texture2D" uid="uid://cfkh5aawet67d" path="res://assets/entities/spider/spider3.png" id="4_525oc"]
+[ext_resource type="AudioStream" uid="uid://dg1pal03bjagu" path="res://assets/entities/spider/3.wav" id="4_534rm"]
+[ext_resource type="Texture2D" uid="uid://d3rm1jbwvetfl" path="res://assets/entities/spider/spider4.png" id="5_swxym"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yceg1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1frrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dtvo4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_525oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_swxym")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2335"]
+
+[node name="spider" instance=ExtResource("1_pingb")]
+script = ExtResource("2_lkniy")
+speed = 7.0
+score = 150
+gravity_scale = 7.635
+hit_sound = ExtResource("3_5ltgi")
+death_sound = ExtResource("4_534rm")
+
+[node name="sprite" parent="." index="0"]
+position = Vector2(0, -10)
+sprite_frames = SubResource("SpriteFrames_yceg1")
+autoplay = "default"
+frame_progress = 0.910036
+speed_scale = 1.2
+
+[node name="shape" parent="." index="1"]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_b2335")
+
+[node name="life" parent="." index="2"]
+max_life = 1
+
+[node name="down" type="RayCast2D" parent="." index="3"]
+position = Vector2(0, -5)
+target_position = Vector2(0, 5)

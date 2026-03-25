@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://bd1ydxvn4rigj"]
+
+[ext_resource type="PackedScene" uid="uid://cahjd1gu5qks8" path="res://scripts/enemy_entity.tscn" id="1_nxohy"]
+[ext_resource type="Texture2D" uid="uid://bgxfwaejj7bsv" path="res://assets/entities/mouse/Mouse-Sheet.png" id="2_gfep6"]
+[ext_resource type="Script" path="res://scripts/behavior/sprite_entity.gd" id="3_s8h5x"]
+[ext_resource type="Script" path="res://scripts/behavior/actor_behavior.gd" id="4_s0c4n"]
+[ext_resource type="Script" path="res://scripts/behavior/side_movement.gd" id="5_g8qmq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imc2n"]
+atlas = ExtResource("2_gfep6")
+region = Rect2(0, 0, 39, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sav1w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imc2n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ohucc"]
+radius = 4.0
+
+[node name="mouse" node_paths=PackedStringArray("sprite") instance=ExtResource("1_nxohy")]
+explosion_scale = Vector2(0.3, 0.3)
+sprite = NodePath("SpriteEntity")
+total_life = 1
+death_color = Color(0.964677, 0.248394, 0.594268, 1)
+
+[node name="SpriteEntity" type="AnimatedSprite2D" parent="." index="0" node_paths=PackedStringArray("actor_behavior")]
+position = Vector2(0, -4)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_sav1w")
+frame_progress = 0.828582
+flip_h = true
+script = ExtResource("3_s8h5x")
+actor_behavior = NodePath("../ActorBehavior")
+
+[node name="SideMovement" type="Node" parent="." index="1" node_paths=PackedStringArray("entity_body", "actor_behavior")]
+script = ExtResource("5_g8qmq")
+entity_body = NodePath("..")
+actor_behavior = NodePath("../ActorBehavior")
+red_turtleish = false
+
+[node name="ActorBehavior" type="Node" parent="." index="2"]
+script = ExtResource("4_s0c4n")
+speed = 20.885
+default_direction = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_ohucc")

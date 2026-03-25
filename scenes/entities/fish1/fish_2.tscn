@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://6pd4p85vyisl"]
+
+[ext_resource type="PackedScene" uid="uid://bxchj0sqkn5p6" path="res://scripts/jumpin_enemy/jump_prop.tscn" id="1_bu4u3"]
+[ext_resource type="Texture2D" uid="uid://qvdq3xckbxbw" path="res://assets/entities/fish1/frame1.png" id="2_aeexv"]
+[ext_resource type="Texture2D" uid="uid://dbs37gov6gupf" path="res://assets/entities/fish1/frame2.png" id="3_aq0dh"]
+[ext_resource type="Texture2D" uid="uid://c5ru44xsj1185" path="res://assets/entities/fish1/frame3.png" id="4_osde3"]
+[ext_resource type="Texture2D" uid="uid://r1mmugfq1ym2" path="res://assets/entities/fish1/frame4.png" id="5_0twjn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ek6jv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_aeexv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_aq0dh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_osde3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0twjn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_30abt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mk5mg"]
+
+[node name="fish2" instance=ExtResource("1_bu4u3")]
+y_force = 600.0
+
+[node name="sprite" parent="." index="0"]
+rotation = 4.71239
+sprite_frames = SubResource("SpriteFrames_ek6jv")
+autoplay = "default"
+
+[node name="shape" parent="." index="1"]
+visible = false
+shape = SubResource("CircleShape2D_30abt")
+
+[node name="hurtArea" parent="." index="3"]
+visible = false
+
+[node name="shape" parent="hurtArea" index="0"]
+shape = SubResource("CircleShape2D_mk5mg")

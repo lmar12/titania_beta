@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3 uid="uid://clkm0p17gvbb2"]
+
+[ext_resource type="PackedScene" uid="uid://da4g35yngkv5j" path="res://scenes/entities/enemy.tscn" id="1_y4nnu"]
+[ext_resource type="Script" path="res://scenes/entities/fireskull/fireskull.gd" id="2_acodi"]
+[ext_resource type="Texture2D" uid="uid://dds8wokixna25" path="res://assets/entities/fireskull/fire-skull.png" id="3_dpavx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4gici"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wjvgf"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8l0j"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(672, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxfgb"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(0, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqe2m"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(96, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arby6"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(192, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toekp"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(288, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgkfr"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(384, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kohax"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(480, 0, 96, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plnht"]
+atlas = ExtResource("3_dpavx")
+region = Rect2(576, 0, 96, 112)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lx4vg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8l0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxfgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqe2m")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arby6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_toekp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgkfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kohax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plnht")
+}],
+"loop": true,
+"name": &"wait",
+"speed": 1.0
+}]
+
+[node name="fireskull" instance=ExtResource("1_y4nnu")]
+motion_mode = 1
+script = ExtResource("2_acodi")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_4gici")
+
+[node name="CollisionShape2D" parent="EnemyArea" index="0"]
+shape = SubResource("CircleShape2D_wjvgf")
+
+[node name="SpriteEntity" parent="." index="2"]
+position = Vector2(1, -4)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_lx4vg")
+animation = &"attack"
+autoplay = "wait"
+frame = 2
+frame_progress = 1.0
+flip_h = true
+
+[node name="ActorBehavior" parent="." index="3"]
+speed = 93.653
+default_direction = 1
+
+[node name="LifeComponent" parent="." index="4"]
+max_life = 1
+
+[node name="Timer" type="Timer" parent="." index="5"]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="take_damage" from="." to="LifeComponent" method="take_damage"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

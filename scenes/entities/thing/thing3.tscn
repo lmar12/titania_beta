@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://bklby8vqlaj2d"]
+
+[ext_resource type="PackedScene" uid="uid://lrqtn1tum7l5" path="res://scripts/enemy2/enemy2.tscn" id="1_26f8b"]
+[ext_resource type="Texture2D" uid="uid://c224ee8svnpup" path="res://assets/entities/thing/thing1.png" id="2_6s7ig"]
+[ext_resource type="Script" path="res://scenes/entities/thing/thing_3.gd" id="2_b7004"]
+[ext_resource type="AudioStream" uid="uid://drh811inehqwm" path="res://assets/sounds/Retro Roar 02.wav" id="2_ee82e"]
+[ext_resource type="Texture2D" uid="uid://daajocv3ot1ip" path="res://assets/entities/thing/thing2.png" id="3_2aa2h"]
+[ext_resource type="AudioStream" uid="uid://dsfpbcua2wwhl" path="res://assets/sounds/hurt.mp3" id="3_iml8y"]
+[ext_resource type="Texture2D" uid="uid://bem26jyreph2g" path="res://assets/entities/thing/thing3.png" id="4_pw4qi"]
+[ext_resource type="Texture2D" uid="uid://b1odjev3gwpd0" path="res://assets/entities/thing/thing4.png" id="5_wnxr8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qjnr5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6s7ig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2aa2h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pw4qi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wnxr8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v33xh"]
+size = Vector2(20, 26)
+
+[node name="thing3" instance=ExtResource("1_26f8b")]
+script = ExtResource("2_b7004")
+speed = 1.868
+score = 100
+gravity_scale = 9.15
+hit_sound = ExtResource("3_iml8y")
+death_sound = ExtResource("2_ee82e")
+
+[node name="sprite" parent="." index="0"]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_qjnr5")
+autoplay = "default"
+frame_progress = 0.34551
+
+[node name="shape" parent="." index="1"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_v33xh")
+
+[node name="life" parent="." index="2"]
+max_life = 1
+
+[node name="right" type="RayCast2D" parent="." index="4"]
+position = Vector2(8, 8)
+target_position = Vector2(8, 8)
+
+[node name="left" type="RayCast2D" parent="." index="5"]
+position = Vector2(-8, 8)
+target_position = Vector2(-8, 8)
+
+[node name="sideRight" type="RayCast2D" parent="." index="6"]
+target_position = Vector2(8, 0)
+
+[node name="sideLeft" type="RayCast2D" parent="." index="7"]
+target_position = Vector2(-8, 0)
